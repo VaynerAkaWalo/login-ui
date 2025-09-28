@@ -3,9 +3,10 @@ import {useEffect, useState} from "react";
 import {AuthenticationClient, type LoginRequest} from "../shared/clients/BarricadeClient.ts";
 import {useNavigate} from "react-router";
 
-export default function LoginForm() {
+export default function RegisterForm() {
   const [login, setLogin] = useState<string>("")
   const [password, setPassword] = useState<string>("")
+  const [passwordRepeated, setPasswordRepeated] = useState<string>("")
   const navigate = useNavigate()
 
   const onLoginChange = (e: any) => {
@@ -16,24 +17,21 @@ export default function LoginForm() {
     setPassword(e.target.value)
   }
 
-  const attemptLogin = async () => {
+  const onRepeatPasswordChange = (e: any) => {
+    setPasswordRepeated(e.target.value)
+  }
+
+  const attemptRegister = async () => {
     const request: LoginRequest = {
       name: login,
       secret: password
     }
 
-    AuthenticationClient.login(request).then(() => {window.location.replace(nextPage())})
+    AuthenticationClient.register(request).then(() => navigate("/"))
   }
 
-  const nextPage = () => {
-    const params = new URLSearchParams(document.location.search)
-    const target = params.get("target")
-
-    return target ? target : "/"
-  }
-
-  const isLoginAllowed = () => {
-    return login.length > 0 && password.length > 0
+  const isRegisterAllowed = () => {
+    return login.length > 5 && login.length < 20 && password.length > 5 && password.length < 20 && password === passwordRepeated
   }
 
   useEffect(() => {
@@ -49,10 +47,8 @@ export default function LoginForm() {
     <div className="w-1/2 h-1/2 flex flex-col justify-evenly items-center border-2">
       <TextField className="w-1/2" label="Login" value={login} onChange={onLoginChange}/>
       <TextField className="w-1/2" label="Password" type="password" onChange={onPasswordChange} value={password}/>
-      <div className="w-full flex justify-evenly">
-        <Button className="w-1/4" variant="contained" onClick={() => navigate('/register')}>Sign Up</Button>
-        <Button className="w-1/4" variant="contained" onClick={attemptLogin} disabled={!isLoginAllowed()}>Sign In</Button>
-      </div>
+      <TextField className="w-1/2" label="Repeat Password" type="password" onChange={onRepeatPasswordChange} value={passwordRepeated}/>
+      <Button className="w-1/3" variant="contained" onClick={attemptRegister} disabled={!isRegisterAllowed()}>Sign Up</Button>
     </div>
   )
 }

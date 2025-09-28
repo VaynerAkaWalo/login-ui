@@ -1,4 +1,4 @@
-import {Button, TextField} from "@mui/material";
+import {Button} from "@mui/material";
 import {AuthenticationClient, type Identity} from "@shared/clients/BarricadeClient.ts";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
@@ -17,7 +17,6 @@ export default function ProfileView() {
   useEffect(() => {
     const loadProfile = async () => {
       const { data } = await AuthenticationClient.getIdentity()
-      console.log(data)
       setProfile(data)
     }
 
@@ -33,10 +32,9 @@ export default function ProfileView() {
   }
 
   return (
-    <div className="w-1/2 h-1/2 flex flex-col justify-evenly items-center border-2 border-zinc-500">
+    <div className="w-1/2 h-1/2 flex flex-col justify-evenly items-center border-2">
       {!loading && <>
-        <TextField className="w-1/2" label="ID" value={profile.id}/>
-        <TextField className="w-1/2" label="Name" value={profile.name}/>
+        <p className="text-2xl">Logged in as {profile.name}</p>
         <Button className="w-1/3" variant="contained" onClick={logout}>Logout</Button>
       </>}
     </div>

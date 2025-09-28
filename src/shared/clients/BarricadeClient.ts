@@ -22,6 +22,10 @@ class BarricadeClient {
     return HTTPClient.post(this.baseUrl + "/v1/login", request)
   }
 
+  public register = (request: LoginRequest): Promise<AxiosPromise<void>> => {
+    return HTTPClient.post(this.baseUrl + "/v1/register", request)
+  }
+
   public logout = (request: any): Promise<AxiosPromise<void>> => {
     return HTTPClient.post(this.baseUrl + "/v1/logout", request)
   }
