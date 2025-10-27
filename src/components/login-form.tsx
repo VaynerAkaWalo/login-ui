@@ -47,11 +47,12 @@ export default function LoginForm() {
 
   return (
     <div className="w-1/2 h-1/2 flex flex-col justify-evenly items-center border-2">
+      <p className="text-3xl font-bold">Sign in to your account</p>
       <TextField className="w-1/2" label="Login" value={login} onChange={onLoginChange}/>
       <TextField className="w-1/2" label="Password" type="password" onChange={onPasswordChange} value={password}/>
       <div className="w-full flex justify-evenly">
-        <Button className="w-1/4" variant="contained" onClick={() => navigate('/register')}>Sign Up</Button>
-        <Button className="w-1/4" variant="contained" onClick={attemptLogin} disabled={!isLoginAllowed()}>Sign In</Button>
+        <Button className="w-1/4" variant="contained" onClick={() => navigate('/register')}>Sign up</Button>
+        <Button className="w-1/4" variant="contained"  onClick={attemptLogin} disabled={!isLoginAllowed()}>Sign in</Button>
       </div>
     </div>
   )

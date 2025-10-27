@@ -14,6 +14,9 @@ export default defineConfig({
   },
 
   server: {
+    host: '127.0.0.1',
+    allowedHosts: ['auth.blamedevs.local'],
+    port: 4000,
     proxy: {
       '/api/v1/': {
         target: 'http://localhost:8080',
