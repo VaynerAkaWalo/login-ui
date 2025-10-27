@@ -1,5 +1,6 @@
 import {Button, TextField} from "@mui/material";
 import {useEffect, useState} from "react";
+import {Login, PersonAdd} from '@mui/icons-material'
 import {AuthenticationClient, type LoginRequest} from "../shared/clients/BarricadeClient.ts";
 import {useNavigate} from "react-router";
 
@@ -22,7 +23,9 @@ export default function LoginForm() {
       secret: password
     }
 
-    AuthenticationClient.login(request).then(() => {window.location.replace(nextPage())})
+    AuthenticationClient.login(request).then(() => {
+      window.location.replace(nextPage())
+    })
   }
 
   const nextPage = () => {
@@ -51,8 +54,14 @@ export default function LoginForm() {
       <TextField className="w-1/2" label="Login" value={login} onChange={onLoginChange}/>
       <TextField className="w-1/2" label="Password" type="password" onChange={onPasswordChange} value={password}/>
       <div className="w-full flex justify-evenly">
-        <Button className="w-1/4" variant="contained" onClick={() => navigate('/register')}>Sign up</Button>
-        <Button className="w-1/4" variant="contained"  onClick={attemptLogin} disabled={!isLoginAllowed()}>Sign in</Button>
+        <Button className="w-1/4 gap-3" variant="outlined" onClick={() => navigate('/register')}>
+          <p>Register</p>
+          <PersonAdd/>
+        </Button>
+        <Button className="w-1/4 gap-3" variant="contained" onClick={attemptLogin} disabled={!isLoginAllowed()}>
+          <p>Login</p>
+          <Login/>
+        </Button>
       </div>
     </div>
   )
