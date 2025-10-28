@@ -1,14 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
 class Client {
-
   public get = async (url: string) => {
-    return axios.get(url)
-  }
+    return axios.get(url);
+  };
 
-  public post = async <T=never>(url: string, request: T): Promise<never> => {
-    return axios.post(url, request)
-  }
+  public post = async <T = never>(url: string, request: T): Promise<never> => {
+    return axios.post(url, request);
+  };
 }
 
-export const HTTPClient = new Client()
+export const HTTPClient = new Client();
